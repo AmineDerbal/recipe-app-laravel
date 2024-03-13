@@ -1,4 +1,3 @@
-
     <nav>
         <ul class="nav_list">
             <li><a href="{{ route('home') }}" class="nav-item mobile-home"> Home</a></li>
@@ -14,8 +13,4 @@
         </ul>
     </nav>
     
-    <!-- @if(auth()->check()) 
-    <h1>Welcome {{ auth()->user()->name }}</h1>
-    @else 
-    <h1>Welcome Guest</h1>
-    @endif -->
+
