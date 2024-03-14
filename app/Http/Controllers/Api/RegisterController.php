@@ -3,21 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\API\BaseController as BaseController;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-
-class RegisterController extends BaseController
+class RegisterController extends Controller
 {
-     /**
-     * Register api
+    /**
+     * Register a new user.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -28,30 +27,35 @@ class RegisterController extends BaseController
         ]);
 
         if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')->accessToken;
-        $success['name'] =  $user->name;
-        $this->sendResponse($success, 'User register successfully.');
-        return redirect()->route('home');
+        $token = $user->createToken('MyApp')->accessToken;
+
+        response()->json(['token' => $token, 'name' => $user->name], 201);
 
     }
 
+    /**
+     * Log in an existing user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function login(Request $request)
     {
-       
-      if(auth()->attempt(['email' => $request->email, 'password' => $request->password])){
-            $user = auth()->user();
-            $success['token'] =  Auth::user()->createToken('MyApp')->accessToken;
-            $success['name'] =  $user->name;
-            return $this->sendResponse($success, 'User login successfully.');
-        }
-        else{
-            return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+        $credentials = $request->only('email', 'password');
+        $remember = $request->filled('remember'); 
+        if (Auth::attempt($credentials, $remember)) {
+            $user = Auth::user();
+            $token = $user->createToken('MyApp')->accessToken;
+      
+        return response()->json(['token' => $token, 'name' => $user->name], 200) ;
+        } else {
+            return response()->json(['message' => 'Unauthorized.'], 401);
         }
     }
 }
