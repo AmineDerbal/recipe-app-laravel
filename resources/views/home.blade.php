@@ -4,6 +4,7 @@
 
 
 @section('content') 
+
 <div class="main_container">
     <div class="home_container">
         <div class="heading">
