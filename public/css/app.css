@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Crete+Round&family=Inter:wght@400;500;600;700;800&family=Poppins&family=Roboto:wght@700&display=swap');
 @import 'home.css';
 @import 'navbar.css';
+@import 'food.css';
+@import 'form.css';
 
 *,
 *::after,
