@@ -7,14 +7,19 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
+class LoginController extends Controller
+{
+    public function show()
+    {
 
-class LoginController extends Controller {
-
-    public function show() {
+        view()->composer('shared.links', function ($view) {
+            $view->with('controllerName', 'LoginController');
+        });
         return view('auth.login');
     }
 
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $credentials = $request->only('email', 'password');
         $remember = $request->filled('remember'); //remember me
 
@@ -22,10 +27,12 @@ class LoginController extends Controller {
             $request->session()->regenerate();
             return redirect()->intended('/');
         }
-        
+
+
     }
 
-    public function destroy(Request $request) {
+    public function destroy(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         return redirect('/login');
