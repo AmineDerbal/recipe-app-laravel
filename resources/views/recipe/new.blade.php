@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+@if ($errors->any())
+<div class="alert alert-danger">
+  <ul>
+    @foreach ($errors->all() as $error)
+    <li>{{ $error }}</li>
+    @endforeach
+  </ul>
+</div>
+@endif
+
 <h2 class='header-title'> New Recipe </h2>
 <form method="POST" action="{{ route('recipe.create') }}">
   @csrf
@@ -26,7 +36,7 @@
   </div>
   <div class="field">
     <label for="public" class="label">Public</label>
-    <input type="checkbox" name="public">
+    <input type="checkbox" name="public" value="1">
   </div>
   <input type="submit" value="Create A Recipe" class="btn-submit">
 </form>
