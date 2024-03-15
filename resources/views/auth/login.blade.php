@@ -3,20 +3,33 @@
 
 @section('content')
 
-<form method="post" action="{{route('login')}}">
-  @csrf
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password"  name="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="remember" name="remember">
-    <label class="form-check-label" for="remember">Remember me</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div class="container-login">
+  <h2 class="title_login">Log in</h2>
+  <form method="POST" action="{{ route('login') }}">
+    @csrf
+    <div class="field">
+      <label for="email" class="label">Email</label>
+      <br>
+      <input id="email" type="email" class="input" name="email" value="{{ old('email') }}" required autocomplete="email"
+        autofocus>
+    </div>
+
+    <div class="field">
+      <label for="password" class="label">Password</label>
+      <br>
+      <input id="password" type="password" class="input" name="password" required autocomplete="current-password">
+    </div>
+
+    <div class="field">
+      <input type="checkbox" id="remember" name="remember">
+      <label class="label" for="remember">Remember me</label>
+    </div>
+    <div class="actions">
+      <input type="submit" name="commit" value="Log in" class="btn-submit">
+    </div>
+  </form>
+
+  @include('shared.links')
+
+</div>
 @endsection
