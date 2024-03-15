@@ -20,7 +20,11 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(to left, rgb(223, 217, 217), rgb(230, 230, 231));
+  background-image: linear-gradient(
+    to left,
+    rgb(223, 217, 217),
+    rgb(230, 230, 231)
+  );
 }
 
 .header-title {
@@ -44,7 +48,7 @@ input[type='submit'] {
   display: flex;
   width: 80%;
   margin: 1rem auto;
-  padding: 1rem 0;
+  padding: 1rem 0.5rem;
 }
 
 .recipe-container div {
