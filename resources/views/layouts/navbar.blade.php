@@ -2,6 +2,7 @@
       <ul class="nav_list">
         <li class="nav-item mobile-home"><a class="nav-item mobile-home" href="{{ route('home') }}"> Home</a></li>
         <li><a class="nav-item" href="{{route('food')}}">Foods</a></li>
+        <li><a class="nav-item" href="{{route('recipe.index')}}">Recipes</a></li>
         @auth
         {{-- User is logged in --}}
         <li class="sign_out">
