@@ -17,6 +17,14 @@ class RecipeController extends Controller
         return view('recipe.index', compact('recipes', 'user'));
     }
 
+    public function show($id)
+    {
+        $recipe = Recipe::find($id);
+        dump($recipe->food->toArray());
+
+        return view('recipe.show', compact('recipe'));
+    }
+
     public function new()
     {
         return view('recipe.new');
@@ -24,7 +32,27 @@ class RecipeController extends Controller
 
     public function create(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'preparation_time' => 'required',
+            'cooking_time' => 'required',
+            'description' => 'required',
+        ]);
 
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $recipe = new Recipe();
+        $recipe->name = $request['name'];
+        $recipe->preparation_time = $request['preparation_time'];
+        $recipe->cooking_time = $request['cooking_time'];
+        $recipe->description = $request['description'];
+        $public = $request->boolean('public');
+        $recipe->is_public = $public;
+        $recipe->user_id = Auth::user()->id;
+        $recipe->save();
+        return redirect()->route('recipe.index')->with('success', 'Recipe created successfully!');
     }
 
     public function destroy($id)
@@ -32,5 +60,13 @@ class RecipeController extends Controller
         $recipe = Recipe::find($id);
         $recipe->delete();
         return redirect()->route('recipe.index')->with('success', 'Recipe deleted successfully!');
+    }
+
+    public function toggle_public($id)
+    {
+        $recipe = Recipe::find($id);
+        $recipe->is_public = !$recipe->is_public;
+        $recipe->save();
+        return redirect()->route('recipe.show', $id);
     }
 }
