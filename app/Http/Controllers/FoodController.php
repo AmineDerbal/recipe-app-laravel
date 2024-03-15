@@ -25,7 +25,7 @@ class FoodController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'price' => 'required|',
+            'price' => 'required|numeric',
             'measurement_unit' => 'required',
             'quantity' => 'required|numeric',
         ]);
