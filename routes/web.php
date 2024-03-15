@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\RecipeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,13 @@ Route::controller(FoodController::class)->group(function () {
     Route::get('/food/{food}/edit', 'edit')->name('food.edit');
     Route::put('/food/{food}', 'update')->name('food.update');
     Route::delete('/food/{food}', 'destroy')->name('food.destroy');
+});
+
+Route::controller(RecipeController::class)->group(function () {
+    Route::get('/recipe', 'index')->name('recipe.index');
+    Route::get('/recipe/new', 'new')->name('recipe.new');
+    Route::post('/recipe', 'create')->name('recipe.create');
+    Route::delete('/recipe/{recipe}', 'destroy')->name('recipe.destroy');
 });
 
 
