@@ -6,7 +6,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FoodController;
 use Illuminate\Support\Facades\Route;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,13 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
- Route::get('/',[HomeController::class, 'index'])->name('home')->middleware('auth');
- Route::controller(FoodController::class)->group(function () {
-     Route::get('/food', 'index')->name('food');
-     Route::get('/food/new', 'new')->name('food.new');
-     Route::post('/food', 'create')->name('food.create');
-     Route::delete('/food/{food}', 'destroy')->name('food.destroy');
- });
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::controller(FoodController::class)->group(function () {
+    Route::get('/food', 'index')->name('food');
+    Route::get('/food/new', 'new')->name('food.new');
+    Route::post('/food', 'create')->name('food.create');
+    Route::get('/food/{food}', 'show')->name('food.show');
+    Route::get('/food/{food}/edit', 'edit')->name('food.edit');
+    Route::put('/food/{food}', 'update')->name('food.update');
+    Route::delete('/food/{food}', 'destroy')->name('food.destroy');
+});
 
 
 Route::controller(RegisterController::class)->group(function () {
@@ -37,4 +39,3 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('/login', 'login')->name('login');
     Route::post('/logout', 'destroy')->name('logout');
 });
-
