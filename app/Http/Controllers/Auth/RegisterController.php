@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers\Auth;
 
@@ -13,10 +13,14 @@ class RegisterController extends Controller
 {
     public function show()
     {
+        view()->composer('shared.links', function ($view) {
+            $view->with('controllerName', 'RegisterController');
+        });
         return view('auth.register');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
