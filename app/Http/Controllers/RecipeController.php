@@ -20,8 +20,6 @@ class RecipeController extends Controller
     public function show($id)
     {
         $recipe = Recipe::find($id);
-        dump($recipe->food->toArray());
-
         return view('recipe.show', compact('recipe'));
     }
 
