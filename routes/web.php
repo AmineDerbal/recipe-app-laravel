@@ -6,6 +6,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RecipeFoodController;
+use App\Http\Controllers\PublicRecipesController;
+use App\Http\Controllers\GenrealShoppingListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,8 +44,11 @@ Route::controller(RecipeController::class)->group(function () {
 Route::controller(RecipeFoodController::class)->group(function () {
     Route::get('/recipe/{recipe}/ingredient/new', 'new')->name('recipe_food.new');
     Route::post('/recipe/{recipe}/ingredient', 'create')->name('recipe_food.create');
-
+    Route::delete('/recipe/ingredient/{recipeFood}', 'destroy')->name('recipe_food.destroy');
 });
+
+Route::get('/public_recipes', [PublicRecipesController::class, 'index'])->name('public_recipes');
+Route::get('general_shopping_list', [GenrealShoppingListController::class, 'index'])->name('general_shopping_list');
 
 
 Route::controller(RegisterController::class)->group(function () {
