@@ -15,7 +15,6 @@ class RecipeFoodController extends Controller
     {
         $user = Auth::user();
         $recipe = Recipe::find($id);
-        dump($recipe->food->toArray());
         return view('recipeFood.new', compact('recipe', 'user'));
     }
 
@@ -36,5 +35,12 @@ class RecipeFoodController extends Controller
         $recipeFood->quantity = $request['quantity'];
         $recipeFood->save();
         return redirect()->route('recipe.show', $id)->with('success', 'Food added to recipe successfully!');
+    }
+
+    public function destroy($id)
+    {
+        $recipeFood = RecipeFood::find($id);
+        $recipeFood->delete();
+        return redirect()->back()->with('success', 'Food removed from recipe successfully!');
     }
 }
