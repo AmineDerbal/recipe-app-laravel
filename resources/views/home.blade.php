@@ -8,7 +8,7 @@
     <div class="heading">
       <h1 class="home_title">Welcome to Our Recipe App!</h1>
       <h1 class="home_title_h2">Find recipes for delicious meals</h1>
-      <a href="" class="btn_home">See recipes</a>
+      <a href="{{route('recipe.index')}}" class="btn_home">See recipes</a>
 
     </div>
     <img src="{{asset('images/bowl.png')}}" class="bowl" alt="bowl" />
