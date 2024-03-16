@@ -4,6 +4,7 @@
         <li><a class="nav-item" href="{{route('food')}}">Foods</a></li>
         <li><a class="nav-item" href="{{route('recipe.index')}}">Recipes</a></li>
         <li><a class="nav-item" href="{{route('public_recipes')}}">Public Recipes</a></li>
+        <li><a class="nav-item" href="{{route('general_shopping_list')}}">General Shopping List</a></li>
         @auth
         {{-- User is logged in --}}
         <li class="sign_out">
