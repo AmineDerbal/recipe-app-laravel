@@ -13,7 +13,12 @@ class Food extends Model
 
     public function recipes()
     {
-        return $this->belongsToMany(Recipe::class, 'recipe_food')->withPivot('quantity');
+        return $this->belongsToMany(Recipe::class, 'recipe_food')->withPivot('quantity', 'id');
+    }
+
+    public function recipefood()
+    {
+        return $this->hasMany(RecipeFood::class);
     }
 
 
