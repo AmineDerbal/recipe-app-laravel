@@ -3,6 +3,7 @@
         <li class="nav-item mobile-home"><a class="nav-item mobile-home" href="{{ route('home') }}"> Home</a></li>
         <li><a class="nav-item" href="{{route('food')}}">Foods</a></li>
         <li><a class="nav-item" href="{{route('recipe.index')}}">Recipes</a></li>
+        <li><a class="nav-item" href="{{route('public_recipes')}}">Public Recipes</a></li>
         @auth
         {{-- User is logged in --}}
         <li class="sign_out">
@@ -11,8 +12,9 @@
             @csrf
             <button class="nav-btn" type="submit">Sign out</button>
           </form>
-          @else
-          {{-- User is not logged in --}}
+        </li>
+        @else
+        {{-- User is not logged in --}}
         <li>
           <form action="{{ route('login.show') }}" method="GET">
             <button class="nav-btn" type="submit">Sign in</button>
