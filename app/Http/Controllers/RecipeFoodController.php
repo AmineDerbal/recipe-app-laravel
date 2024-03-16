@@ -28,13 +28,19 @@ class RecipeFoodController extends Controller
         if($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
-        $recipeFood = new RecipeFood();
-        $recipeFood->recipe_id = $id;
-        $recipeFood->food_id = $request['food_id'];
-        $recipeFood->quantity = $request['quantity'];
-        $recipeFood->save();
-        return redirect()->route('recipe.show', $id)->with('success', 'Food added to recipe successfully!');
+        $recipeFood = RecipeFood::where('recipe_id', $id)->where('food_id', $request['food_id'])->first();
+        if($recipeFood) {
+            $recipeFood->quantity = $request['quantity'];
+            $recipeFood->save();
+            return redirect()->route('recipe.show', $id)->with('success', 'Food updated in the recipe successfully!');
+        } else {
+            $recipeFood = new RecipeFood();
+            $recipeFood->recipe_id = $id;
+            $recipeFood->food_id = $request['food_id'];
+            $recipeFood->quantity = $request['quantity'];
+            $recipeFood->save();
+            return redirect()->route('recipe.show', $id)->with('success', 'Food added to recipe successfully!');
+        }
     }
 
     public function destroy($id)
