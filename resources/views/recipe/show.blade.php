@@ -65,7 +65,7 @@
         <td> {{$food->pivot->quantity}} {{$food->measurement_unit}} </td>
         <td> {{$food->pivot->quantity * $food->price}} $ </td>
         <td>
-          <form method="POST" action="">
+          <form method="POST" action="{{route('recipe_food.destroy',$food->pivot->id)}}">
             @csrf
             @method('DELETE')
             <input type="submit" value="Delete" class="btn btn-danger">
@@ -73,7 +73,6 @@
         </td>
       </tr>
       @endforeach
-
 
   </table>
 </div>
