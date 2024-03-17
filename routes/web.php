@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::controller(FoodController::class)->group(function () {
         Route::get('/food', 'index')->name('food');
@@ -53,18 +54,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
-
-
-
-
-
-
-
-
-
 Route::controller(RegisterController::class)->group(function () {
     Route::get('/register', 'show')->name('register.show');
     Route::post('/register', 'store')->name('register.store');
+    Route::get('account/verify/{token}', 'verifyAccount')->name('user.verify');
 });
 
 Route::controller(LoginController::class)->group(function () {
