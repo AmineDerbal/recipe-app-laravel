@@ -34,8 +34,7 @@
     <div class="field">
       <label for="password_confirmation" class="label">Password confirmation</label>
       <br>
-      <input id="password_confirmation" type="password" class="input" name="c_password" required
-        autocomplete="new-password">
+      <input id="password_confirmation" type="password" class="input" name="c_password" required autocomplete="new-password">
     </div>
     <div class="actions"> <input type="submit" name='commit' class="btn-submit" value="Sign up"> </div>
   </form>
