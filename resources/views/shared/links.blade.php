@@ -3,6 +3,7 @@
 @endif
 
 @if(isset($controllerName) && $controllerName !== 'RegisterController')
+<p><a href="{{route('password.request')}}">Forget Password ?</a></p>
 <p><a href="{{ route('register.show') }}">Register</a></p>
 @endif
 
