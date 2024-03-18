@@ -33,8 +33,8 @@ class RegisterController extends Controller
 
         if ($validator->fails()) {
             return redirect('register')
-                        ->withErrors($validator)
-                        ->withInput();
+                ->withErrors($validator)
+                ->withInput();
         }
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
@@ -50,8 +50,10 @@ class RegisterController extends Controller
             $message->subject('Email Verification Mail');
         });
 
-        return redirect()->route('home')->withSuccess('User created successfully');
-
+        return redirect()->route('login.show')->with([
+            'success' => 'User created successfully',
+            'notice' => 'An email verification has been sent, check your mails'
+        ]);
     }
 
     public function verifyAccount($token)
