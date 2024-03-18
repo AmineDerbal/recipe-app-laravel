@@ -12,6 +12,27 @@
 </div>
 @endif
 
+@if(session('email_verification'))
+<div class="alert alert-danger">
+  {{session('email_verification')}}
+</div>
+
+@endif
+
+@if (session('success'))
+<div class="alert alert-success">
+  {{ session('success') }}
+</div>
+@endif
+
+@if (session('notice'))
+<div class="alert alert-info">
+  {{session('notice')}}
+
+</div>
+
+@endif
+
 <div class="container-login">
   <h2 class="title_login">Log in</h2>
   <form method="POST" action="{{ route('login') }}">
@@ -19,8 +40,7 @@
     <div class="field">
       <label for="email" class="label">Email</label>
       <br>
-      <input id="email" type="email" class="input" name="email" value="{{ old('email') }}" required autocomplete="email"
-        autofocus>
+      <input id="email" type="email" class="input" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
     </div>
 
     <div class="field">
