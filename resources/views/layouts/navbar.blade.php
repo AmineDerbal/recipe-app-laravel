@@ -5,6 +5,16 @@
         <li><a class="nav-item" href="{{route('recipe.index')}}">Recipes</a></li>
         <li><a class="nav-item" href="{{route('public_recipes')}}">Public Recipes</a></li>
         <li><a class="nav-item" href="{{route('general_shopping_list')}}">General Shopping List</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Languages
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Fr</a></li>
+            <li><a class="dropdown-item" href="#">en</a></li>
+          </ul>
+        </li>
+
         @auth
         {{-- User is logged in --}}
         <li class="sign_out">
@@ -24,4 +34,5 @@
         </li>
         @endauth
       </ul>
+
     </nav>
