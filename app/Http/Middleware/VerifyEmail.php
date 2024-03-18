@@ -18,10 +18,12 @@ class VerifyEmail
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
+        if (!$user)
+            return redirect()->route('login.show')->with('notice', 'You need to login or register first');
+
         if ($user && !$user->email_verified_at) {
-            auth()->logout();
-            return redirect()->route('home')
-                    ->with('message', 'You need to confirm your account. We have sent you an activation code, please check your email.');
+            return redirect()->route('login.show')
+                ->with(['email_verification' => 'You need to confirm your account first']);
         }
 
         return $next($request);
