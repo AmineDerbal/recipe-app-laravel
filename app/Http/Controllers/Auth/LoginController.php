@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\UserVerify;
+use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
 {
@@ -32,8 +34,18 @@ class LoginController extends Controller
                 'email' => 'The provided credentials do not match our records.',
             ]);
         }
+    }
 
+    public function resendVerificationEmail()
+    {
+        $userVerify = UserVerify::where('user_id', Auth::user()->id)->first();
+        $token = $userVerify->token;
+        Mail::send('emails.emailVerificationEmail', ['token' => $token], function ($message) {
+            $message->to(Auth::user()->email);
+            $message->subject('Email Verification Mail');
+        });
 
+        return redirect()->route('login.show')->with('notice', 'We have resend verification link to your email');
     }
 
     public function destroy(Request $request)
@@ -42,5 +54,4 @@ class LoginController extends Controller
         $request->session()->invalidate();
         return redirect('/login');
     }
-
 }
