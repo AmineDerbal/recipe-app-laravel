@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'verify_email'], function () {
     Route::controller(FoodController::class)->group(function () {
         Route::get('/food', 'index')->name('food');
         Route::get('/food/new', 'new')->name('food.new');
@@ -51,7 +51,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/public_recipes', [PublicRecipesController::class, 'index'])->name('public_recipes');
     Route::get('general_shopping_list', [GenrealShoppingListController::class, 'index'])->name('general_shopping_list');
-
 });
 
 Route::controller(RegisterController::class)->group(function () {
@@ -64,4 +63,5 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'show')->name('login.show');
     Route::post('/login', 'login')->name('login');
     Route::post('/logout', 'destroy')->name('logout');
+    Route::get('/resend-verification-email', 'resendVerificationEmail')->name('resend.verification.email');
 });
