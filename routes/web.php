@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RecipeFoodController;
@@ -64,4 +65,11 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('/login', 'login')->name('login');
     Route::post('/logout', 'destroy')->name('logout');
     Route::get('/resend-verification-email', 'resendVerificationEmail')->name('resend.verification.email');
+});
+
+Route::controller(PasswordController::class)->group(function () {
+    Route::get('/password/reset', 'showLinkRequestForm')->name('password.request');
+    Route::post('/password/email', 'sendResetLinkEmail')->name('password.email');
+    Route::get('/password/reset/{token}', 'showResetForm')->name('password.reset');
+    Route::post('/password/reset', 'reset')->name('password.update');
 });
